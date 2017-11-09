@@ -30,5 +30,8 @@ RUN \
   apt-get install sbt && \
   sbt sbtVersion
 
+# Install Docker
+RUN apt-get update && apt-get install docker
+
 # Define working directory
 WORKDIR /root
