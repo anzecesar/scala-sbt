@@ -8,8 +8,8 @@
 FROM openjdk:8u151
 
 # Env variables
-ENV SCALA_VERSION 2.12.4
-ENV SBT_VERSION 1.0.2
+ENV SCALA_VERSION 2.12.3
+ENV SBT_VERSION 1.0.3
 
 # Scala expects this file
 RUN touch /usr/lib/jvm/java-8-openjdk-amd64/release
@@ -21,17 +21,17 @@ RUN \
   echo >> /root/.bashrc && \
   echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /root/.bashrc
 
+# Install bc, required by sbt 1.0.3
+RUN \
+  apt-get update && \
+  apt-get install -y bc docker
+
 # Install sbt
 RUN \
   curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
   dpkg -i sbt-$SBT_VERSION.deb && \
   rm sbt-$SBT_VERSION.deb && \
-  apt-get update && \
-  apt-get install sbt && \
   sbt sbtVersion
-
-# Install Docker
-RUN apt-get update && apt-get install docker
 
 # Define working directory
 WORKDIR /root
