@@ -24,7 +24,7 @@ RUN \
 # Install bc, required by sbt 1.0.3
 RUN \
   apt-get update && \
-  apt-get install -y bc docker
+  apt-get install -y bc
 
 # Install sbt
 RUN \
